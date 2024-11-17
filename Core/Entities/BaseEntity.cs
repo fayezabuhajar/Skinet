@@ -1,6 +1,6 @@
 
 
-namespace Core.Entites;
+namespace Core.Entities;
 
 public class BaseEntity
 {

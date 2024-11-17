@@ -1,5 +1,5 @@
 
-namespace Core.Entites;
+namespace Core.Entities;
 
 public class Product : BaseEntity // we use the id attribute from BaseEntity
 {
