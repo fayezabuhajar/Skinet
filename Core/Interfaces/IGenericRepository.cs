@@ -37,4 +37,6 @@ public interface IGenericRepository<T> where T : BaseEntity
 
     // Checks if an entity with a given ID exists in the repository
     bool Exists(int id);
+
+    Task<int> CountAsync(ISpecification<T> spec);
 }
