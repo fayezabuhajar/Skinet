@@ -1,3 +1,4 @@
+using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,19 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Registering a generic repository that can handle multiple entity types
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddCors();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+    .WithOrigins("http://localhost:4200","httpS://localhost:4200"));
 // Configure the HTTP request pipeline
 
 // Mapping controller routes so the app can handle HTTP requests to controller endpoints
 app.MapControllers();
+
+
 
 try
 {

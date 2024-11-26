@@ -5,6 +5,8 @@ using API.RequestHelpers;
 
 namespace API.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class BaseApiController : ControllerBase
 {
     protected async Task<ActionResult> CreatePageResult<T>(IGenericRepository<T> 
