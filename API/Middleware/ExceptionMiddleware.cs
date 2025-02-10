@@ -13,26 +13,36 @@ public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
         {
             await next(context);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             await HandleExceptionAsync(context, ex, env);
         }
     }
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception ex, IHostEnvironment env)
+    private static Task HandleExceptionAsync(
+        HttpContext context,
+        Exception ex,
+        IHostEnvironment env
+    )
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
         var response = env.IsDevelopment()
-        ? new ApiErrorsResponse(context.Response.StatusCode,ex.Message, ex.StackTrace)
-        : new ApiErrorsResponse(context.Response.StatusCode, ex.Message, "internal server error");
+            ? new ApiErrorsResponse(context.Response.StatusCode, ex.Message, ex.StackTrace)
+            : new ApiErrorsResponse(
+                context.Response.StatusCode,
+                ex.Message,
+                "internal server error"
+            );
 
-        var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
 
-        var json = JsonSerializer.Serialize(response,options);
+        var json = JsonSerializer.Serialize(response, options);
 
         return context.Response.WriteAsync(json);
-
     }
 }

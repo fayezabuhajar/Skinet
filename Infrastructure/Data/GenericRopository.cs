@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Data;
 
 // Implements a generic repository for data access with Entity Framework Core
-public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T>(StoreContext context) : IGenericRepository<T>
+    where T : BaseEntity
 {
     // Adds a new entity to the context
     public void Add(T entity) => context.Set<T>().Add(entity);
@@ -73,9 +74,9 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
         return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), spec);
     }
 
-    private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T,TResult> spec)
+    private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> spec)
     {
         // Uses SpecificationEvaluator to apply the specification to the query
-        return SpecificationEvaluator<T>.GetQuery<T,TResult>(context.Set<T>().AsQueryable(), spec);
+        return SpecificationEvaluator<T>.GetQuery<T, TResult>(context.Set<T>().AsQueryable(), spec);
     }
 }

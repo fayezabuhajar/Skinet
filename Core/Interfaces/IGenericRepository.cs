@@ -18,10 +18,10 @@ public interface IGenericRepository<T> where T : BaseEntity
     // Lists all entities that match a specification asynchronously
     Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
 
-     Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T,TResult> spec);
+    Task<TResult?> GetEntityWithSpec<TResult>(ISpecification<T, TResult> spec);
 
- 
-    Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T,TResult> spec);
+
+    Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> spec);
 
     // Adds a new entity to the repository
     void Add(T entity);

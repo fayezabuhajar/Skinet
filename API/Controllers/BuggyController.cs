@@ -8,36 +8,30 @@ namespace API.Controllers;
 public class BuggyController : BaseApiController
 {
     [HttpGet("unauthorized")]
-
     public IActionResult GetUnauthorized()
     {
         return Unauthorized();
     }
 
-     [HttpGet("badrequest")]
-
+    [HttpGet("badrequest")]
     public IActionResult GetBadRequest()
     {
         return BadRequest("Not a good request");
     }
 
-     [HttpGet("notfound")]
-
+    [HttpGet("notfound")]
     public IActionResult GetNotFound()
     {
         return NotFound();
     }
 
-
-     [HttpGet("internalerror")]
-
+    [HttpGet("internalerror")]
     public IActionResult GetInternalError()
     {
         throw new Exception("This is a test exception");
     }
 
-     [HttpPost("validationerror")]
-
+    [HttpPost("validationerror")]
     public IActionResult GetValidationErorr(CreateProductDto product)
     {
         return Ok();
